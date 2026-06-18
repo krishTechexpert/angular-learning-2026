@@ -1,0 +1,13 @@
+<p><strong>Parent to child communication below</strong></p>
+<app-child-b [name]="user.name" [age]="user.age" (childData)="onChildData($event)"></app-child-b>
+
+<p><strong>Child to parent communication below</strong></p>
+<h2>Child ne bheja: {{ receivedData }}</h2>
+
+
+<!-- (childData) = child ka @Output() naam -->
+<!-- "onChildData($event)" = parent ka method -->
+<!-- $event = jo child ne emit kiya — "Mera naam Rahul hai!" -->
+
+
+

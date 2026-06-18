@@ -1,0 +1,9 @@
+h1{
+  color:red
+}
+.line{
+  height:5px;
+  margin-top:10px;
+  background-color: #000;
+  width:100%;
+}

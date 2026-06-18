@@ -1,0 +1,20 @@
+<h2>Directives Concept implementaion : For Loop demo</h2>
+<ul>
+  <!--  print all person name -->
+  <li *ngFor = "let item of people;let i = index">
+    {{i}}  {{item.name}} {{item.age}}
+  </li>
+   
+</ul>
+================================
+  <!-- show person who age is greater than 18-->
+
+<ul *ngFor = "let user of people">
+
+  <li *ngIf="user.age >=18">
+    {{user.name}} {{user.age}}
+  </li>
+
+</ul>
+
+

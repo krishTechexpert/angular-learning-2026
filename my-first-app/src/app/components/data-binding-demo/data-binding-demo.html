@@ -1,0 +1,277 @@
+<h1>Data Binding</h1>
+<ul>
+
+  <li>Typs of Data Binding</li>
+   <li>- Interpolation {{ ""}}</li>
+   <li> Property Binding [ ]</li>
+   <li>- Property Binding [ ]</li>
+   <li>- Event Binding ( )</li>
+   <li>- Two-way Binding [( )]</li>
+</ul>
+
+
+<h3>1. Interpolation — {{"" }} Easy <br>
+  TypeScript class ka data HTML mein dikhana. Sabse simple binding — sirf display karna hai.</h3>
+  <h1>Hello {{ name }}!</h1>           <!-- Hello Krishna! -->
+<p>Price: Rs. {{ price }}</p>       <!-- Price: Rs. 999 -->
+<p>{{ price * 2 }}</p>              <!-- Expression bhi chal sakti hai: 1998 -->
+<p>{{ name.toUpperCase() }}</p>    <!-- Method bhi: KRISHNA -->
+<p>{{ today | date }}</p>           <!-- Pipe se format bhi kar sakte -->
+
+<br><br><br>
+
+<h2>2. Property Binding — [ ] <br>Easy
+HTML element ki property ko TypeScript variable se bind karo. Square brackets [ ] use hote hain.</h2>
+<!-- Property Binding syntax: [property]="expression" -->
+
+<img [src]="imageUrl" [alt]="altText">
+<!-- React: <img src={imageUrl} alt={altText}> -->
+
+<button [disabled]="btnDisabled">Buy Now</button>
+<!-- React: <button disabled={btnDisabled}> -->
+
+
+  <!-- STRING approach — unreliable -->
+<button disabled="{{ btnDisabled }}"></button> <!--wrong way-->
+  <!-- btnDisabled=false → disabled="false" → button STILL disabled! Bug! -->
+  
+  <!-- BOOLEAN approach — reliable -->
+  <button [disabled]="btnDisabled"></button>
+  <!-- btnDisabled=false → disabled attribute hata deta hai → button enabled! -->
+  
+
+<input [value]="inputValue" />
+<!-- React: <input value={inputValue}> -->
+
+<a [href]="linkUrl">Click here</a>
+
+<p>Interpolation vs Property Binding — kab kya use karein?</p>
+<!-- Dono same kaam karte hain text ke liye -->
+<p>{{ name }}</p>             <!-- Interpolation -- string display -->
+<p [textContent]="name"></p>  <!-- Property binding -- same result -->
+
+<!-- BUT -- boolean/non-string ke liye property binding use karo -->
+<button disabled="{{ btnDisabled }}">  WRONG -- string "true"/"false" aayega</button>
+<button [disabled]="btnDisabled">    CORRECT -- actual boolean</button>
+
+<br><br><br><br>
+
+<h2>3. Event Binding — ( ) Easy</h2>
+<p>User ke actions (click, keyup, submit) ko TypeScript methods se connect karo. Round brackets ( ) use hote hain.</p>
+<button (click)="increment()">Counter {{count}}</button>
+<!-- React: <button onClick={increment}> -->
+
+
+<p>  <input (keyup)="onKeyUp($event)"/></p>
+<!-- $event = actual DOM event object -->
+<!-- React: onChange={(e) => onKeyUp(e)} -->
+ <p>my input value on keyup event <b>{{message}}</b></p>
+
+ <input (keyup)="onKeyUp($event)">
+<!-- $event = actual DOM event object -->
+<!-- React: onChange={(e) => onKeyUp(e)} -->
+
+<form (submit)="onSubmit()"></form>
+
+<input (keyup.enter)="onSubmit()"> 
+
+<br><br><br><br>
+
+<h2>4. Two-way Binding — [( )] ngModel Angular Specific </h2>
+  <p>Input field aur TypeScript variable dono sync rehte hain — automatically! Input change karo → variable update. Variable change karo → input update.</p>
+
+
+  <!-- // Step 1: app.module.ts mein FormsModule import karo -->
+<!-- <p>import { FormsModule } from '@angular/forms';</p>
+
+<p>@NgModule({
+  imports: [BrowserModule, FormsModule]  // ← zaroori hai!
+})</p> -->
+
+<!-- // Step 2: TypeScript class
+//email initial karo
+//name -->
+
+<h5>ngModel Angular ka built-in feature nahi hai directly — yeh FormsModule ke andar defined hai.
+</h5>
+
+<!-- Step 3: Template -->
+ <h4>[(ngModel)] = [ ] + ( ) combined </h4>
+
+ <!-- Short form -->
+<label>short form<input [(ngModel)]="name" /></label>
+
+<!-- Long form -- isko "banana in a box" kehte hain -->
+
+<p><label>Long form<input [ngModel]="name" (ngModelChange)="name=$event"/></label></p>
+
+<!-- [ngModel] = property binding (class → input) -->
+<!-- (ngModelChange) = event binding (input → class) -->
+
+<p>Hello {{ name }}!</p>
+
+<h5>
+React se compare — Angular kitna easy hai!
+ <p>React mein — manually karna padta tha</p>
+<p>const [name, setName] = useState('Krishna');</p>
+<!-- <input value={name} onChange={(e) => setName(e.target.value)}> -->
+
+ <p>Angular mein — bas ek line!</p>
+<input [(ngModel)]="name">
+Angular khud value aur onChange dono handle karta hai </h5>
+
+<h5>Kyun alag module mein rakha — reason kya hai?</h5>
+  <p>Angular ka philosophy hai — "Sirf woh load karo jo chahiye"</p>
+  <p>BrowserModule     → Basic Angular — hamesha chahiye</p>
+  <p>FormsModule       → Forms use karne pe — optional</p>
+  <p>HttpClientModule  → API calls pe — optional</p>
+  <p>RouterModule      → Routing pe — optional</p>
+  <p>Agar tu forms use nahi karta apni app mein — toh FormsModule load hi mat karo — bundle size chhota rahega.</p>
+  <p>React mein yeh concept nahi tha — sab ek saath aata tha.</p>
+
+<br><br>
+
+  
+
+<h2>Style Binding</h2>
+
+<span [style.fontSize.px]="isTrue ? 20 : 15">hello </span>
+
+<span [style.fontSize.px]="!isTrue ? 20 : 15">world </span>
+
+<h2 [style.display]="isLogin ? 'block': 'none'">show component</h2>
+
+Bonus — 3 alag tarike same kaam ke liye
+html<!-- 1. style.display — tera wala (sahi with quotes) -->
+<h2 [style.display]="isLogin ? 'block' : 'none'"></h2>
+
+<!-- 2. ngIf — recommended ✅ -->
+<h2 *ngIf="isLogin">Show Component</h2>
+
+<!-- 3. ngStyle -->
+<h2 [ngStyle]="{'display': isLogin ? 'block' : 'none'}"></h2>
+
+<br><br>
+
+<h2>class Binding</h2>
+
+<div [class]="isTrue ? 'one':'two'">hello</div>
+
+But — ek important difference jaanta hai?
+<br>
+[class] aur [ngClass] mein fark hai:
+html<!-- [class] — REPLACE karta hai poori class -->
+<div class="existing" [class]="isTrue ? 'one' : 'two'"></div>
+<!-- "existing" class HATH JAI — sirf 'one' ya 'two' rahega -->
+
+<!-- [ngClass] — ADD karta hai existing ke saath -->
+<div class="existing" [ngClass]="{'one': isTrue}"></div>
+<!-- "existing" bhi rahega + "one" bhi add hoga -->
+
+
+Kaunsa use karein — quick guide
+html<!-- 1. Sirf ek class toggle — [class.className] best -->
+<div [class.active]="isTrue"></div>
+
+<!-- 2. Either/or — tera wala [class] theek hai -->
+<div [class]="isTrue ? 'one' : 'two'"></div>
+
+<!-- 3. Multiple conditions — [ngClass] best -->
+<div [ngClass]="{'one': isTrue, 'bold': isBold, 'error': hasError}"></div>
+
+<p>Angular check karta hai — ek ek karke:</p>
+<p>'one'   : isTrue   = true   → ✅ class ADD karo</p>
+<p>'bold'  : isBold   = false  → ❌ class MAT lagao</p>
+<p>'error' : hasError = true   → ✅ class ADD karo</p>
+<p [style]="navStyle">Final output:</p>
+html<div class="one error"></div>
+
+<!-- 1. String + [style] — tera wala -->
+<nav [style]="navStyle">Nav 1</nav>
+
+<!-- Object ke saath ngStyle use karo -->
+<nav [ngStyle]="navStyle1">Yeh green bold text hoga</nav>
+
+
+
+<h2>Attribute Binding</h2>
+
+<p>for Initial/static set only where as property binding for dynamically value chnage</p>
+
+<!--Simple Rule yaad karo
+DOM Property exist karta hai?
+        ↓
+    YES → Property Binding  [property]="expr"
+        ↓
+    NO  → Attribute Binding [attr.name]="expr"
+
+colspan, aria-*, data-* → hamesha [attr.]
+disabled, src, value, href → [property] directly-->
+
+<!-- 1. colspan — sirf attribute hai, DOM property nahi -->
+<!-- Property binding kaam nahi karega! -->
+<!--<td [attr.colspan]="columns">  ✅
+<td [colspan]="columns">   -->    ❌ Error!
+
+ <!--2. aria-label — accessibility attribute -->
+<!--<button [attr.aria-label]="label">  ✅
+<button [aria-label]="label">       ❌ Error!
+
+ 3. data-* attributes 
+<div [attr.data-id]="userId">  ✅
+
+ 4. disabled — DOM property hai 
+<button [disabled]="isDisabled">      ✅ Property binding
+<button [attr.disabled]="isDisabled"> ⚠️ Works but not recommended -->
+
+
+
+
+<!-- Syntax: [attr.attribute-name]="expression" 
+<input [attr.value]="userName" />
+<td [attr.colspan]="colSpan"></td>
+<button [attr.aria-label]="btnLabel"></button>-->
+
+<!--Kya hota hai internally
+html<button [attr.disabled]="isDisabled">
+isDisabled = true  → setAttribute('disabled', 'true')  → DISABLED ✅
+isDisabled = false → setAttribute('disabled', 'false') → STILL DISABLED! ❌
+                     ↑
+                     attribute exist karta hai — "false" string hai
+                     HTML ko value se matlab nahi — sirf attribute hona chahiye-->
+
+
+
+
+<!-- input [value]="name" />-->
+<!-- User kuch type kare → input.value change hoga -->
+<!-- But attr.value wahi rahega jo initially tha -->
+
+<!-- <input [attr.value]="name" /> -->
+<!-- User kuch type kare → attr.value change nahi hoga -->
+<!-- Attribute = original snapshot -->
+
+
+<h2>Directives Concept:</h2>
+<p>we can used for </p>
+<p>Resuability</p>
+<p>Dom manipulation</p>
+<p>Validation</p>
+
+<h2>what is the relationship between directives and components</h2>
+
+<p> 1.) components drive from directives</p>
+<p> 2.) directives can not run on their own -> Load them on components</p>
+<p>2 types of directives <br>
+      a.) structural directives --> modify the DOM structure
+      b.) attribute directives --> modify the UI--> apply some css and modify the UI of the elements
+
+</p>
+===================================================
+<p>we have predefined structural directives and attribute directives</p>
+<p>and we can also write custom structural directives and custom attribute directives as well </p>
+
+<h2>predefined structural directives</h2>
+<p> *ngFor (for loop), *ngIf(if else condition), *ngSwitch</p>
+
+<p>and these are used in Template (.html) files</p>

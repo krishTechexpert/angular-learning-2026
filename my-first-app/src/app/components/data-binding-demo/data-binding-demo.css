@@ -1,0 +1,11 @@
+.one{
+  color:red
+}
+.two{
+  color:blue
+}
+.active{
+  height:40px;
+  background-color: aqua;
+  width:100px;
+}
