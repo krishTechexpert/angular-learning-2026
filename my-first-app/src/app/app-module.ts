@@ -14,10 +14,12 @@ import { CommunicationBwtComponent } from './components/communication-bwt-compon
 import { ParentA } from './components/parent-a/parent-a';
 import { ChildB } from './components/child-b/child-b';
 import { ForIfDemo } from './components/for-if-demo/for-if-demo';
-import { SwitchDemo } from './components/switch-demo/switch-demo';
 import { SiblingDemo } from './components/sibling-demo/sibling-demo';
 import { Sidebar } from './components/sidebar/sidebar';
 import { ThemeBar } from './components/theme-bar/theme-bar';
+import { SwitchCaseDemo } from './components/switch-case-demo/switch-case-demo';
+import { ReservedWordDemo } from './components/reserved-word-demo/reserved-word-demo';
+import { TrackByDemo } from './components/track-by-demo/track-by-demo';
 
 @NgModule({
   declarations: [
@@ -32,10 +34,12 @@ import { ThemeBar } from './components/theme-bar/theme-bar';
     ParentA,
     ChildB,
     ForIfDemo,
-    SwitchDemo,
     SiblingDemo,
     Sidebar,
     ThemeBar,
+    SwitchCaseDemo,
+    ReservedWordDemo,
+    TrackByDemo,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners()],

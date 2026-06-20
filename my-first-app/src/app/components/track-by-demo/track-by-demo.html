@@ -1,0 +1,44 @@
+<h2>Track By Demo (very very imp)</h2>
+
+<h3>Angular has an issues with respect to DOM (releated to performance)</h3>
+
+<p>  when we cliked on refresh button then it unload / load all tr</p>
+<p>when we cliked on add new button it added load only new record</p>
+<p>I think we used key in react and in angular same thing happen by track by</p>
+
+<h2>trackBy function</h2>
+<p>The trackBy function takes the index and the current item as arguments <br>
+and return the unique identifier  by which that item should be tracked <br>
+In our case , we are tracking by employee code
+</p>
+
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Code</th>
+        <th scope="col">Name</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employess; trackBy:trackByEmpCode">
+        <td>{{emp.code}}</td>
+        <td>{{emp.name}}</td>
+        <td>{{emp.gender}}</td>
+        <td>{{emp.salary}}</td>
+      </tr>
+
+      <tr *ngIf="!employess  || employess.length == 0">
+        <td>No employees to display</td>
+      </tr>
+      
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <button class="btn btn-primary" (click)="getEmployess()">Refresh Employees</button>
+  <button class="btn btn-success" (click)="addEmployees()">Add new Employee</button>
+

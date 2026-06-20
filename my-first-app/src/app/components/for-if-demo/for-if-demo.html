@@ -15,6 +15,26 @@
     {{user.name}} {{user.age}}
   </li>
 
+  <ng-container *ngIf="user.age >=18; then t1; else t2">
+
+  </ng-container>
+
+  <!-- apply if else condition -->
+   <!-- *ngIf with then/else -->
+
+  <ng-template #t1>
+    <h4>run this code when condition is true</h4>
+  </ng-template>
+
+  
+  <ng-template #t2>
+   <h4> run this code when condition is false</h4>
+  </ng-template>
+
 </ul>
 
 
+<h2>While loop</h2>
+<div *ngFor="let num of numbers">
+  Items:{{num}}
+</div>

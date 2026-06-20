@@ -1,4 +1,27 @@
+<p>BrowserModule re-exports CommonModule internally, so you automatically get:</p>
+
+✅ *ngFor <br>
+✅ *ngIf <br>
+✅ *ngSwitch <br>
+✅ async pipe <br>
+✅ date, currency, uppercase pipes etc. <br>
+
+
+⚠️ One gotcha — BrowserModule should only be imported once in AppModule. For feature/lazy-loaded modules,
+ use CommonModule directly — not BrowserModule again.
+
+ <h2>Building block of Angular app</h2>
+ <p><Strong>Components (abc.components.ts)</Strong></p>
+ <p><Strong>directives (abc.directives.ts)</Strong></p>
+ <p><Strong>services (abc.services.ts)</Strong></p>
+ <p><Strong>pipes (abc.pipes.ts)</Strong></p>
+ <p><Strong>modules (abc.modules.ts)</Strong></p>
+
+ ======================================
+
 <h1>hello world</h1>
+
+
 <header-comp></header-comp>
 <app-footer></app-footer>
 
@@ -14,4 +37,18 @@
 
 <app-communication-bwt-component></app-communication-bwt-component>
 
+<div class="line"></div>
+
 <app-for-if-demo></app-for-if-demo>
+
+<div class="line"></div>
+
+<app-switch-case-demo></app-switch-case-demo>
+
+<div class="line"></div>
+
+<app-reserved-word-demo></app-reserved-word-demo>
+
+<div class="line"></div>
+
+<app-track-by-demo></app-track-by-demo>

@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './for-if-demo.css',
 })
 export class ForIfDemo {
+  numbers:number[]=[];
   people:any[]=[{
     name:"sachin",
     age:21,
@@ -17,4 +18,13 @@ export class ForIfDemo {
     name:"shewagh",
     age:38
   }]
+
+constructor(){
+  let i=0;
+  while(i<5){
+    this.numbers.push(i);
+    i++;
+  }
+}
+
 }

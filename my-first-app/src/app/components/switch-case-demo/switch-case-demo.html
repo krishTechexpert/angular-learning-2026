@@ -1,0 +1,54 @@
+<h2>Switch case demo</h2>
+<p>
+    💡 Notice [ngSwitch] uses [ ] (property binding) 
+    while *ngSwitchCase uses * (structural directive) — common gotcha for React devs.
+
+</p>
+
+
+
+<h2>Why Single Quotes Inside Double?</h2>
+<p><strong>html*ngSwitchCase="'admin'"</strong></p>
+<p>The outer double quotes " " — tell Angular this is a template expression (like JS eval)</p>
+<p>The inner single quotes ' ' — tell Angular this is a string literal inside that expression</p>
+
+
+<h2>What Happens Without Inner Quotes?</h2>
+<h4> ❌ Wrong — Angular treats admin as a VARIABLE </h4>
+<p>*ngSwitchCase="admin"</p>
+
+<h4> ✅ Correct — Angular treats 'admin' as a STRING </h4>
+<p>*ngSwitchCase="'admin'"</p>
+
+
+<div [ngSwitch]="userRole">
+
+<div *ngSwitchCase="'admin'">
+    <p>👑 Admin — Full access</p>
+</div>
+
+<div *ngSwitchCase="'editor'">
+    <p>✏️ Editor — Can edit content</p>
+
+</div>
+
+<div *ngSwitchCase="'viewer'">
+    <p>👁️ Viewer — Read only</p>
+  </div>
+
+  <div *ngSwitchDefault>
+    <p>🚫 Unknown role — No access</p>
+  </div>
+
+
+  <button class="m-2 btn btn-primary" *ngFor="let role of roles"
+   (click)="setRole(role)"  
+   [style.fontWeight]="userRole === role ? 'bold' : 'normal'">
+    
+    {{role}}
+  </button>
+
+</div>
+
+===========================================================
+

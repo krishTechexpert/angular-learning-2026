@@ -1,0 +1,54 @@
+<h2>You have some reserved word in angularJs</h2>
+<p>  <strong>$event : same as in react e.target
+
+<p><strong>odd</strong></p>
+<p><strong>even</strong></p>
+<p><strong>first</strong></p>
+<p><strong>last</strong></p>
+<p><strong>count</strong></p>
+<p><strong>index</strong></p>
+<p><strong>track by (Very very Imp)</strong></p>
+<h6>This is Angular's version of React's key prop.</h6>
+
+
+<h3>Without trackBy — Angular re-renders entire list on every change.</h3>
+<h3>With trackBy — Angular only re-renders changed items, just like React's key.</h3>
+
+<p> ❌ Without trackBy — destroys & recreates ALL DOM nodes</p>
+<p> ✅ With trackBy — only updates what changed</p>
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th>Index</th>
+        <th>SL No.</th>
+        <th>Total Count</th>
+        <th scope="col">Name</th>
+        <th scope="col">age</th>
+        <th scope="col">salary</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of people; let i=index; first as isFirst; 
+      last as isLast; even as isEven; odd as isOdd; count as totalCount"
+      [style.background]="isEven ? '#e8f5e9' : '#ffffff'">
+
+     
+        <td>Index : {{i}}</td>
+        <td>SL No: {{i+1}} </td>
+        <td>total Count: {{i+1}} of {{totalCount}} </td>
+        <td>{{p.name}}</td>
+        <td>{{p.age}}</td>
+        <td>{{p.salary}}</td>
+        <td>
+            IsFirst:{{isFirst}}
+            IsLast : {{isLast}}
+            IsEven : {{isEven}}
+            IsOdd : {{isOdd}}
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
