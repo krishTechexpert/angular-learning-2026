@@ -278,3 +278,230 @@ isDisabled = false → setAttribute('disabled', 'false') → STILL DISABLED! ❌
 
 ===================================================
 <h2>Custom structure directives</h2>
+<p>Custom structural directive = you build your own *ngSomething that adds/removes DOM elements <br>
+  — just like *ngIf does.
+</p>
+<!-- In React// React
+function IfRole({ role, children }) {
+  return role === 'admin' ? children : null;
+}
+
+<IfRole role="admin">
+  <Dashboard />
+</IfRole> -->
+<p>In Angular you do the same with a structural directive:</p>
+  <!-- html<div *appIfRole="'admin'">
+    <app-dashboard />
+  </div> -->
+
+  <h2>Build One — Step by Step  </h2>
+  <p>Scenario — show element only if user is admin  </p>
+  <p><strong>Step 1</strong> — Generate the directive  </p>
+  <p>ng generate directive directives/ifRole</p>
+  <p><strong>Step 2 </strong>— Write the directive  </p>
+  <p>check <strong>if-role.directive.ts</strong>  </p>
+  <p><strong>Step 3</strong> — Declare in AppModule ( IfRoleDirectiv1e in app.module.ts    )  </p>
+
+  <h2>Rules of directives in angular</h2>
+  <p><strong>1.)</strong> component have to load the directives as directives can not run on their own 
+    <br>(means that esko compoment k ander load karty hai, akely load nhi hota hai)</p>
+  <p><strong>2.) </strong> 1 tag can load only 1 structure directive</p>  
+  <p><strong>3.) </strong> 1 tag can load multiple attribute directive</p>  
+  <p><strong>4.) </strong> While creating custom directives</p>
+  <p><strong>4.a.) </strong>define class -> decorated with @Directive()</p>
+  <p><strong>4.b.) </strong>@Directive(selector: '[]') selector that is used to calling the directives</p>
+
+  <p><strong>4.c.) </strong>Custom directives has to be registered in app.modules.ts inside declarations: section. (in angular 15)</p>
+  <p><strong>4.d.) </strong>you can generate directive by angular CLI command by: <br>
+    <strong>ng generate directive Nameofthedirective</strong>
+    <br>or short form as <strong>ng g d Nameofthedirective</strong>
+  </p>
+<p><strong>ElementRef: it is class</strong> — Direct DOM Access
+  Think of it like React's useRef().current</p>
+ <h2> Problem with ElementRef — it directly touches the DOM which is:</h2>
+
+<p>❌ Unsafe — XSS attacks possible</p>
+<p>\❌ Breaks Server Side Rendering (SSR)</p>
+<p>❌ Breaks Web Workers</p>
+<p>❌ Angular team says avoid it</p>
+<p>=======================================================</p>
+
+<p><strong>Renderer2: it is class</strong> — Safe DOM Access</p>
+<p>Angular's safe wrapper around DOM manipulation.</p>
+<!-- constructor(
+  private el: ElementRef,
+  private renderer: Renderer2
+) {}
+
+// Safe DOM manipulation via Renderer2
+this.renderer.setStyle(this.el.nativeElement, 'backgroundColor', 'yellow');
+this.renderer.setAttribute(this.el.nativeElement, 'disabled', 'true');
+this.renderer.addClass(this.el.nativeElement, 'active');
+this.renderer.removeClass(this.el.nativeElement, 'active'); -->
+
+<h2>Simple Analogy </h2>
+<p>ElementRef  =  touching live electric wire directly  ⚡ dangerous</p>
+<p>Renderer2   =  using insulated gloves to touch it    🧤 safe</p>
+
+<h1 changeColor>hello directive attribute you can see it is in red color with implementaion </h1>
+
+<p><strong>@HostListener:</strong> listening to events that are fired by Host Elements like (like addEventListener)</p>
+
+ <h1 changeColor>Example of Directives (mouseEnter/mouseLeave) try it </h1> nativeElement as H1 which load my SampleDirective 
+<p>Here H1 is the host element</p>
+
+<p><strong>@HostBinding: bind property/class/style to host element in Directives</strong></p>
+<p>No nativeElement, no Renderer2 needed — Angular handles it automatically ✅ in @HostBinding</p>
+
+<p><strong>💡 Rule of thumb</strong> — in directives, always prefer @HostBinding + @HostListener over ElementRef + Renderer2. Cleaner code, no direct DOM touching, Angular manages everything.</p>
+
+<h2>Show Hide password implementaion using Directives example</h2>
+
+<div>
+  <p><label>Enter password (not safe way to DOM manipulation directly)</label> <br>
+  <input type="password" appPassword />
+</p>
+    <!-- 👆 directive handles everything automatically -->
+
+</div>
+
+<div>
+ <p> <label>Enter password (Safe DOM Manipulation way)</label> <br>
+  <input type="password" appShowHidePasswordImproved />
+</p>
+</div>
+
+
+<p>=======================================================</p>
+
+
+
+<table>
+  <thead>
+    <th>Angular</th>
+    <th>React Equivalent</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TemplateRef</td>
+      <td>children prop</td>
+    </tr>
+    <tr>
+      <td>ViewContainerRef</td>
+      <td>the DOM placeholder</td>
+    </tr>
+    <tr>
+      <td>createEmbeddedView()</td>
+      <td>return children</td>
+    </tr>
+    <tr>
+      <td>container.clear()</td>
+      <td>return null</td>
+    </tr>
+    <tr>
+      <td>@Input() set appIfRole</td>
+      <td>function IfRole role </td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+
+<h2>Rule — Easy to Remember</h2>
+<p>Directive has standalone: true  then imports: [] in NgModule</p>
+<p>Directive has no standalone / standalone: false then declarations: [] in NgModule</p>
+
+<p><strong>Step 4 — Use in HTML</strong></p>
+<div *appIfRole="'admin'">
+  👑 Only Admin sees this
+</div>
+
+<div *appIfRole="'editor'">
+  ✏️ Only Editor sees this
+</div>
+
+<p><strong>Step 5 —</strong> Pass role from component</p>
+<p>The * Syntax — What it Actually Does</p>
+<p>Angular expands * behind the scenes:</p>
+
+<!-- What you write -->
+<div *appIfRole="'admin'">Content</div>
+
+<!-- What Angular actually sees -->
+<ng-template [appIfRole]="'admin'">
+  <div>Content 123</div>
+</ng-template>
+
+<p>The * is just shorthand for wrapping in ng-template <ng-template></ng-template> — same way *ngIf and *ngFor work.</p>
+
+============================================================================
+
+<h2>Can we create custom attribute directives -? YES</h2>
+
+<h3>Difference — Quick Recap</h3>
+
+<table>
+  <thead>
+    <th>Type</th>
+    <th>What it does</th>
+    <th>Example</th>
+
+  </thead>
+  <tbody>
+    <tr>
+      <td>Structural</td>
+      <td>Adds/removes DOM elements</td>
+      <td>*ngIf, *ngFor</td>
+    </tr>
+    <tr>
+      <td><strong>Attribute</strong></td>
+      <td>Changes appearance/behavior of existing element</td>
+      <td>[ngClass], [ngStyle]</td>
+    </tr>
+  </tbody>
+</table>
+<p>In React you'd do this with a custom hook or wrapper:</p>
+<!-- <p>In Angular, <div appHighlight="yellow">Hello</div></p> -->
+ <p>ElementRef:  // 👆 gives direct access to the DOM element
+  // React equivalent → useRef()</p>
+  <p>Renderer 2</p>
+===========================================================
+  <h3>Key Concepts Used  </h3>
+
+  
+<table>
+  <thead>
+    <th>Angular</th>
+    <th></th>
+    <th>React Equivalent</th>
+
+  </thead>
+  <tbody>
+    <tr>
+      <td>ElementRef</td>
+      <td></td>
+      <td>useRef()</td>
+    </tr>
+    <tr>
+      <td><strong>@HostListener('mouseenter')</strong></td>
+      <td></td>
+      <td>onMouseEnter</td>
+    </tr>
+
+    <tr>
+      <td><strong>@HostListener('mouseleave')</strong></td>
+      <td></td>
+      <td>onMouseLeave</td>
+    </tr>
+    <tr>
+      <td><strong>@Input() appHighlight</strong></td>
+      <td></td>
+      <td>props</td>
+    </tr>
+    <tr>
+      <td><strong>@el.nativeElement</strong></td>
+      <td></td>
+      <td>ref.current</td>
+    </tr>
+  </tbody>
+</table>

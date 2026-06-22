@@ -20,6 +20,10 @@ import { ThemeBar } from './components/theme-bar/theme-bar';
 import { SwitchCaseDemo } from './components/switch-case-demo/switch-case-demo';
 import { ReservedWordDemo } from './components/reserved-word-demo/reserved-word-demo';
 import { TrackByDemo } from './components/track-by-demo/track-by-demo';
+import { IfRoleDirective } from './directives/if-role.directive';
+import { SampleDirective } from './directives/sample-directive';
+import { ShowHidePassword } from './directives/show-hide-password';
+import { ShowHidePasswordImproved } from './directives/show-hide-password-improved';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,10 @@ import { TrackByDemo } from './components/track-by-demo/track-by-demo';
     SwitchCaseDemo,
     ReservedWordDemo,
     TrackByDemo,
+    IfRoleDirective,
+    SampleDirective,
+    ShowHidePassword,
+    ShowHidePasswordImproved,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners()],

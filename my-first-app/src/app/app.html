@@ -1,3 +1,197 @@
+<h1>Learn Angular-10/6/2022</h1>
+<h2>1. Everything is Built-in 🏗️</h2>
+<p>React — you assemble your own stack:</p>
+<p>React + React Router + Redux/Zustand + React Query + Axios + React Hook Form</p>
+<p>= YOU decide, YOU configure, YOU maintain</p>
+
+<h4>Angular — everything out of the box:</h4>
+<p>Angular = Router + HttpClient + Forms + RxJS + DI + Testing</p>
+<p>= ONE framework, ONE decision, ONE update</p>
+
+<p>💡 In large teams — this is a massive advantage. Everyone writes Angular the same way.</p>
+
+<p><strong>One Line Summary</strong></p>
+
+<p> React gives you freedom —</p>
+<p>Angular gives you structure</p>
+
+<h2>2. Dependency Injection — React has nothing like this 💉</h2>
+<p> Pass everything as props or Context — can get messy
+    <!-- <AuthContext.Provider value={authService}>
+      <App />
+    </AuthContext.Provider> -->
+</p>
+
+<p> Service automatically available anywhere with @Injectable
+    <!-- @Injectable({ providedIn: 'root' })
+    export class AuthService {
+      login() { ... }
+    }
+    
+    // Any component just asks for it
+    export class LoginComponent {
+      auth = inject(AuthService);  // Angular handles the rest
+    } -->
+
+</p>
+<p>💡 No prop drilling, no Context boilerplate — Angular's DI is one of the most powerful patterns in frontend.</p>
+
+<h2>3. TypeScript is Mandatory — Not Optional ✅</h2>
+
+<h2>4. Opinionated Structure — Scales Better 📁</h2>
+<p>React project — every team does it differently:</p>
+<p>src/ <br>
+    components/     ← or features/ or modules/ or pages/?<br>
+    hooks/          ← or utils/ or helpers/?<br>
+    store/          ← Redux? Zustand? Jotai? Context?
+</p>
+
+<p><strong>Angular project — always the same:</strong></p> 
+<p>
+    src/ <br>
+  app/ <br>
+    components/<br>
+    services/<br>
+    directives/<br>
+    pipes/<br>
+    guards/<br>
+</p>   
+<p>💡 Join any Angular project — you know exactly where everything is. React projects vary wildly.
+
+</p>
+
+<h2>5. RxJS — Powerful Async Handling 🔄</h2>
+<p>💡 RxJS handles debounce, cancellation, retry, combine streams — things React needs multiple libraries for.</p>
+
+<h2>6. Angular CLI — Best in Class 🛠️</h2>
+# Generate anything instantly<br>
+ng generate component dashboard <br>
+ng generate service auth <br>
+ng generate directive highlight <br>
+ng generate pipe currency <br>
+ng generate guard auth <br>
+<br>
+# Build with optimization <br>
+ng build --configuration production<br>
+<br><br>
+# Run tests <br>
+ng test <br>
+ng e2e <br>
+
+<p><strong>React has no official CLI that does all this. Vite/CRA don't generate components/services.
+</strong></p>
+
+<h2>7. Performance — OnPush + Signals 🚀</h2>
+<p>React — re-renders by default on every state change:</p>
+<p> Every parent re-render = child re-renders<br>
+     Need useMemo, useCallback, React.memo to fix
+</p>
+
+<p><strong>Angular — OnPush change detection:</strong></p>
+<p>  Only re-render when @Input reference changes <br>
+     No useMemo needed
+</p>
+<p>Angular 16+ Signals — even better:</p>
+
+<h2>8. Enterprise Ready — Out of the Box 🏢</h2>
+
+
+
+<table>
+    <thead>
+      <th>Feature</th>
+      <th>&nbsp;</th>
+      <th>React</th>
+      <th>&nbsp;</th>
+      <th>Angular</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Routing</td>
+        <td></td>
+        <td>React Router (3rd party)</td>
+        <td></td>
+        <td>Built-in</td>
+      </tr>
+
+      <tr>
+        <td>HTTP</td>
+        <td></td>
+        <td>Axios / fetch (manual)</td>
+        <td></td>
+        <td>HttpClient (built-in)</td>
+      </tr>
+      <tr>
+        <td>Forms</td>
+        <td></td>
+        <td>React Hook Form (3rd party)</td>
+        <td></td>
+        <td>Built-in</td>
+      </tr>
+      <tr>
+        <td>Testing</td>
+        <td></td>
+        <td>Jest + RTL (setup needed)</td>
+        <td></td>
+        <td>Jasmine + Karma (ready)</td>
+      </tr>
+      <tr>
+        <td>State</td>
+        <td></td>
+        <td>Redux/Zustand (3rd party)</td>
+        <td></td>
+        <td>Services + RxJS (built-in)</td>
+      </tr>
+      <tr>
+        <td>Auth Guards</td>
+        <td></td>
+        <td>Manual</td>
+        <td></td>
+        <td>Built-in canActivate</td>
+      </tr>
+      <tr>
+        <td>Lazy Loading</td>
+        <td></td>
+        <td>Manual setup</td>
+        <td></td>
+        <td>Built-in</td>
+      </tr>
+      <tr>
+        <td>i18n</td>
+        <td></td>
+        <td>3rd party</td>
+        <td></td>
+        <td>Built-in</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      
+    </tbody>
+  </table>
+
+
+<p>=====================================================================</p>
+
 <p>BrowserModule re-exports CommonModule internally, so you automatically get:</p>
 
 ✅ *ngFor <br>
