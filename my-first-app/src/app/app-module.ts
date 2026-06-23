@@ -24,6 +24,7 @@ import { IfRoleDirective } from './directives/if-role.directive';
 import { SampleDirective } from './directives/sample-directive';
 import { ShowHidePassword } from './directives/show-hide-password';
 import { ShowHidePasswordImproved } from './directives/show-hide-password-improved';
+import { PipeDemo } from './components/pipe-demo/pipe-demo';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ShowHidePasswordImproved } from './directives/show-hide-password-improv
     SampleDirective,
     ShowHidePassword,
     ShowHidePasswordImproved,
+    PipeDemo,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners()],

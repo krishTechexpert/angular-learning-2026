@@ -1,0 +1,116 @@
+<br>
+<h1>Pipe Concept:</h1>
+
+<h2>What is a Pipe?</h2>
+<p>Data Transformation --> Think of it like a filter in a Instagram photo — same photo, different look. 
+    <br> Same data, different display.</p>
+
+
+<p>Original Data  →  Pipe  →  Formatted Output</p>
+<p>'krishna'      →  uppercase  →  'KRISHNA'</p>
+<p>1000000        →  currency   →  '₹10,00,000'</p>
+<p>'2024-01-15'   →  date       →  'Jan 15, 2024'</p>
+
+<h2>React vs Angular</h2>
+<p>In React — you format data manually:</p>
+<p> React — manual formatting everywhere</p>
+<p>name.toUpperCase()</p>
+<p>₹price.toLocaleString('en-IN')</p>
+<p>new Date(date).toLocaleDateString()</p>
+
+<p> Same logic repeated in every component 😫</p>
+
+<h3>In Angular — one pipe, use anywhere: In built feature</h3>
+<!-- Angular — clean & reusable -->
+<p>name | uppercase </p>
+<p> price | currency:'INR' </p>
+<p> date | date:'mediumDate' </p>
+
+<h3>When Do You Need It?</h3>
+<p>Displaying formatted date     → date pipe</p>
+<p>Showing currency              → currency pipe</p>
+<p>Uppercase / lowercase text    → uppercase / lowercase pipe</p>
+<p>Filtering a list              → custom pipe</p>
+<p>Limiting text length          → custom pipe</p>
+<p>Converting JSON to string     → json pipe</p>
+<p>decimal pipe:  minIntegerDigit.minFractionDigit-maxFractionDigit  </p>
+<p>Example:  {{num1 | number}} </p>
+
+<p>minIntegerDigit: Minimum number of interger digit. default is 1</p>
+<p>minFractionDigit: Minimum number of fraction digit. default is 0</p>
+<p>maxFractionDigit: Minimum number of fraction digit. default is 3 </p>
+<p>Example:  {{num1 | number}} </p>
+<p>Example:  {{num1 | number:'3.2-5'}} //012.63847 </p>
+<p>before decimal, minimum number should be 3 so angular add 0 automatically 012.</p>
+
+<p>another decimal example</p>
+<p>{{x | number:'3.2-5'}} // 00.50</p>
+
+
+<h3>Predefined Pipes list: in built in angular</h3>
+<p>all predefined pipes defined in @angular/commom</p>
+
+<table class="table">
+    <thead>
+      <th>Pipe</th>
+      <th>Example</th>
+      <th>Output</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>uppercase</td>
+        <td>'hello' | uppercase</td>
+        <td>HELLO</td>
+      </tr>
+      <tr>
+        <td>lowercase</td>
+        <td>'HELLO' | lowercase</td>
+        <td>hello</td>
+      </tr>
+      <tr>
+        <td>titlecase</td>
+        <td>'hello world' | titlecase</td>
+        <td>Hello World</td>
+      </tr>
+      <tr>
+        <td>date</td>
+        <td>today | date:'short'</td>
+        <td>6/23/26</td>
+      </tr>
+      <tr>
+        <td>currency</td>
+        <td>1000 | currency:'INR'</td>
+        <td>₹1,000.00</td>
+      </tr>
+      <tr>
+        <td>number</td>
+        <td>3.14159 | number:'1.2-2'</td>
+        <td>3.14</td>
+      </tr>
+      <tr>
+        <td>percent</td>
+        <td>0.25 | percent</td>
+        <td>25%</td>
+      </tr>
+      <tr>
+        <td>json</td>
+        <td>obj | json</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>slice</td>
+        <td>'Krishna' | slice:0:5</td>
+        <td>Krish</td>
+      </tr>
+      <tr>
+        <td>async</td>
+        <td>users$ | async</td>
+        <td>unwrapped value</td>
+      </tr>
+            
+    </tbody>
+  </table>
+<p>=============================================================</p>
+<br>
+<h2>Creating Custom pipe</h2>
+
