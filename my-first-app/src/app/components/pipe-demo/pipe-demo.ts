@@ -9,4 +9,5 @@ import { Component } from '@angular/core';
 export class PipeDemo {
   num1:number=12.638467846;
   x:number=0.5;
+  langulage:string="ANGULAR";
 }

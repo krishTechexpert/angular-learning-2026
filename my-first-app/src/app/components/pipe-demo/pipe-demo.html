@@ -114,3 +114,114 @@
 <br>
 <h2>Creating Custom pipe</h2>
 
+<p>Same as built-in pipes but you build it for your own needs.</p>
+<p><strong>Syntax: value | pipeName:param1:param2:param3 </strong></p>
+
+<h2>Rules of custom pipe | manual method</h2>
+<p>1.) define class that implements PipeTransform --> write the logic in transform method</p>
+<p>2.) decorate the class with @Pipe()</p>
+<p>3.) register the class in declarations[] in app.module.ts</p>
+<p>Use the pipe in html file</p>
+===================================================
+
+<p>Quick Generate Pipe | angular CLI method</p>
+<p>ng generate pipe pipes/truncate</p>
+<p>src/app/pipes/<br>
+  truncate.pipe.ts<br>
+  truncate.pipe.spec.ts</p>
+<p>1. ng generate pipe pipes/pipeName <br>
+    2. Write transform() logic <br>
+    3. Declare in AppModule <br>
+    4. Use in HTML with | pipeName</p> <br>
+
+<p>Use Case</p>
+<p>Sorting/Search/Filter list</p>
+<p>— gender Pipe, salary pipe etc</p>
+<p>Truncating data</p>
+<p>reverse - string ops/mathmatical ops</p>
+
+<p>Let us see below example -1 for making Capitalization using custom pipe</p>
+<p>Before Pipe: {{langulage}}</p>
+<h3>After Pipe:  {{langulage | capitalize}}</h3>
+=====================================================<br><br>
+
+<h2>2 Types of pipes</h2>
+<div>
+  <h4>Pure pipe --- stateless by default and executed when pure primivite value/reference changes </h4>
+<p>Stateless pipes(pure) are pure function that flow input data through without remembering anything
+  <br> or causing detectable side effects. Most pipes are stateless.
+</p>
+
+</div>
+<div><h4>impure pipe --- statefull by default and execute for every change detection such as search on each key stroke</h4>
+<p>Statefull pipes (impure) are those which can manage the state of the data they transform.
+  <br>A pipe that creates an http request,store the response and display the output, is a statefull pipe.
+  <br>Statefull pipe should be used cautiously.
+  <br>Angular provide Asyn pipe, which is statefull.
+</p>
+</div>
+
+<p>By default all predefined pipes such as date,number,json,lowercase are <strong>pure pipes</strong>
+</p>
+<p>execpt <strong>async pipe is impure pipe</strong></p>
+
+<p>we explain those in further with basic details</p>
+===========================================================
+
+<h2>Complex Example -02 Filter | using Pipe</h2>
+--------------------------------------------------
+<h2>By default all pipes are pure:</h2>
+<p>Pure pipe only runs when input reference changes:</p>
+
+<p>pure pipe runs when:</p>
+<p>✅ new array assigned    →  userList = [...newUsers]</p>
+<p>✅ new string typed      →  filterBy = "kri"</p>
+
+<p>pure pipe does NOT run when:</p>
+<p>❌ item added to same array  →  userList.push(newUser)</p>
+<p>❌ item removed from array   →  userList.splice(0,1)</p>
+<p>❌ item property changed     →  userList[0].name = 'new name'</p>
+
+================================================
+
+<h2>Why? — Reference vs Value</h2>
+// Same reference — pure pipe IGNORES this<br>
+userList.push(newUser)<br>
+// userList reference is still SAME array<br>
+// Angular says "nothing changed" → pipe does NOT run<br>
+
+// New reference — pure pipe SEES this<br>
+userList = [...userList, newUser]<br>
+// userList is now NEW array<br>
+// Angular says "something changed" → pipe runs ✅<br>
+
+<p><strong>💡 Exactly like React — useState re-renders only when reference changes. arr.push() doesn't trigger re-render, setArr([...arr, item]) does.
+<p><strong>💡 Best practice</strong> — always use new array reference (spread operator) instead of pure: false. Same rule applies in React too — never mutate state directly!
+  </p>
+</strong></p>
+
+<p>💡 Same logic — Angular pipe just keeps it out of the component and in the template. Cleaner component, reusable filter anywhere.
+</p>
+<p>Open browser console — you'll see:</p>
+
+<p>pipe run   ← fires when component loads</p>
+<p>pipe run   ← fires every keystroke in input</p>
+<p>pipe run   ← fires every keystroke in input</p>
+
+<p>💡 This is why trackBy matters with pipes — pipe re-runs on every keystroke.
+  <br> For large arrays, add pure: false carefully or debounce the input.
+
+</p>
+
+<h2>React Same Rule</h2>
+// ❌ React — same bug<br>
+users.push(newUser) <br>
+setUsers(users) // same reference → no re-render<br>
+
+// ✅ React — correct <br>
+setUsers([...users, newUser]) // new reference → re-render<br>
+=============================================================
+
+
+<app-filter></app-filter>
+

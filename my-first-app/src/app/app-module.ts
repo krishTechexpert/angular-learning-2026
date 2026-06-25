@@ -25,6 +25,9 @@ import { SampleDirective } from './directives/sample-directive';
 import { ShowHidePassword } from './directives/show-hide-password';
 import { ShowHidePasswordImproved } from './directives/show-hide-password-improved';
 import { PipeDemo } from './components/pipe-demo/pipe-demo';
+import { CapitalLizePipe } from './pipes/CapitalLizePipe';
+import { Filter } from './components/filter/filter';
+import { MyUserFiltersPipe } from './pipes/my-user-filters-pipe';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { PipeDemo } from './components/pipe-demo/pipe-demo';
     ShowHidePassword,
     ShowHidePasswordImproved,
     PipeDemo,
+    CapitalLizePipe,
+    Filter,
+    MyUserFiltersPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners()],

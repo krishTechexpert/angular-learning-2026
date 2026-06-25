@@ -1,0 +1,57 @@
+<p><strong>Filter Demo</strong></p>
+
+<p>//myUserFilters is pipe we defined in filter.ts file</p>
+<p>Filter based on name property we defined in User interface object</p>
+<p>userList              →  value      (full array)</p>
+<p>filterBy              →  filterString  (what user typed)</p>
+<p>'name'                →  property   (which field to search)</p>
+=============================================================
+<p>filterBy = "kri"     ← user typed this in input</p>
+<p>property = "name"    ← search in name field</p>
+========================================================
+<h2>Break it down:Pipe</h2>
+<p>let user of userList | myUserFilters:filterBy:'name'</p>
+<p>userList              →  value        (1st argument)</p>
+<p>myUserFilters         →  pipe name</p>
+<p>:filterBy             →  filterString (2nd argument) (what user typed)</p>
+<p>:'name'               →  property     (3rd argument)  (which field to search)</p>
+<p> value | pipeName:param1:param2:param3 </p>
+<p>                 👆      👆      👆</p>
+<p>                :  separates each parameter</p>
+============================================================
+
+<div>
+    <label for="filter">Filter by:</label>
+    <input type="text" id="filter" [(ngModel)]="filterBy"/>
+</div><br>
+
+<button (click)="onAddUser()">Add User</button><br><br>
+
+
+<div *ngFor="let user of userList | myUserFilters:filterBy:'name'">
+    <ul>
+        <li>{{user.name}}</li>
+    </ul>
+</div>
+
+<h2>Full Picture — One View | execute step by step</h2>
+
+HTML calls:<br>
+userList | myUserFilters : 'kri' : 'name'<br>
+     ↓            ↓          ↓       ↓
+   value    pipeName    filterStr  property<br>
+     ↓
+transform([Krishna,Priya,Rahul], 'kri', 'name')<br>
+     ↓
+length===0? NO<br>
+!filterString? NO<br>
+     ↓
+loop starts:<br>
+  Krishna → 'krishna kumar'.includes('kri') → true  → push ✅<br>
+  Priya   → 'priya sharma'.includes('kri')  → false → skip ❌<br>
+  Rahul   → 'rahul verma'.includes('kri')   → false → skip ❌<br>
+     ↓
+return [Krishna]<br>
+     ↓
+*ngFor renders:<br>
+  <div>Krishna Kumar</div><br>
