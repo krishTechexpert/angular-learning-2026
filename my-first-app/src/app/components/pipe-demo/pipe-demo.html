@@ -225,3 +225,28 @@ setUsers([...users, newUser]) // new reference → re-render<br>
 
 <app-filter></app-filter>
 
+
+<h1>Try to loop object using predfined pipes as keyvalue</h1>
+<div *ngFor="let row of rows | keyvalue">
+  <p>{{row}} <!-- result[object object]--></p>
+  <p>{{row | json}}</p> <!--it give resulty as with in key value pair such as { "key": "a", "value": 1 }-->
+  <p>{{row.key}}-{{row.value}}</p><!-- a-1-->
+</div>
+
+<h2>Pipe chaning</h2>
+
+<p>we can used more than 1 pipe such as below example (json,uppercase)</p>
+<div *ngFor="let row of rows | keyvalue">
+  <p>{{row | json | uppercase}}</p> <!-- { "KEY": "A", "VALUE": 1 }-->
+</div>
+
+<h2>Async Pipe</h2>
+<p>we will  it when we used Rxjs = Reactive javascript extension library</p>
+<p>RxJS (Reactive Extensions for JavaScript) is a library for working with asynchronous data streams using a functional programming approach. It’s widely used in modern web development, especially with frameworks like Angular.</p>
+<p>Simple Analogy
+  Think of RxJS like:<br>
+  
+  Observable = YouTube live stream<br>
+  Subscriber = Viewer<br>
+  Operator = Filters/effects applied to the stream</p><br>
+  ==================== Pipe End Here ========================================

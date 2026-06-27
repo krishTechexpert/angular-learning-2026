@@ -1,0 +1,67 @@
+<h2>life-cycle-hooks Concept </h2>
+<p>events that are fired by Angular for components,directives,pipes etc...</p>
+<p>1. life cycle hooks are interface that you need to implement it</p>
+<p>2. life cycle hooks are fired by angular</p>
+<h3>Life cycle Hooks</h3>
+<p>all life cycle hooks methods are prefix with ng .see in below table</p>
+<p>Angular calls cycle hooks methods on directives and components as it creates,change,and destroy them.</p>
+<table class="table table-striped">
+    <thead>
+        <th>creates method</th>
+        <th></th>
+        <th>changes/update method</th>
+        <th></th>
+        <th>destroy method</th>
+        <th></th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ngOnInit : after the first ngOnChanges</td>
+            <td></td>
+            <td>ngDocheck:developer's custom change detection</td>
+            <td></td>
+            <td>ngOnDestroy: just before the directive is destroyed</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ngAfterContentInit: After component content initialized</td>
+            <td></td>
+            <td>ngOnChanges: called when input or output binding value changes</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ngAfterViewInit: after component's view(s) are initialized</td>
+            <td></td>
+            <td>ngAfterContentChecked: after every check on component content</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>ngAfterViewChecked:after every check of component's view(s)</td>
+            <td></td>
+            <td></td>
+        </tr>
+        
+    </tbody>
+</table>
+
+<h2>Content vs Template</h2>
+
+<p>hello world is the content for p tag</p>
+
+<p>like table tag with all inside tag are template</p>
+
+<p>So if you want to access content of tag then you need to subscribe to ngAfterContentInit <br>
+and alongwith this you can used decorator such as @ContentChild / @ContentChildren 
+</p>
+======================================================================================
+
+<p>So if you want to access Template of tag(s) then you need to subscribe to ngAfterViewInit <br>
+    and alongwith this you can used decorator such as @ViewChild / @ViewChildren 
+</p>
+
+<app-life-cycle-parent></app-life-cycle-parent>

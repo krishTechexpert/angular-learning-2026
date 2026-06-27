@@ -1,0 +1,239 @@
+<h2>Real World — Show Loader Until Data Ready</h2>
+<p>Constructor = Angular's ONLY way to inject dependencies</p>
+<p>Constructor → "Tell Angular what you NEED" <br>
+    ngOnInit    → "USE what Angular gave you"</p>
+<div *ngIf="isLoading">
+    🔄 Loading...
+  </div>
+  
+  <div *ngIf="isLoaded">
+    <p>✅ Data Ready at {{ loadTime }}</p>
+    <ul>
+      <!-- 👇 remove pipe first to test -->
+      <li *ngFor="let user of users1">
+        {{ user.name }}
+      </li>
+    </ul>
+  </div>
+
+  Always clean up in ngOnDestroy:<br>
+
+setTimeout  → clearTimeout  ✅ <br>
+setInterval → clearInterval ✅ <br>
+Observable  → unsubscribe   ✅ <br>
+EventListener → removeEventListener ✅ <br>
+=========================================================
+
+<h1>Lifecycle Hooks — Step by Step Execution Order</h1>
+
+<h2>Phase 1 — Component BIRTH 🐣</h2>
+<p>First time component loads:</p>
+<p>STEP 0️⃣ — Constructor <br>
+    ━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+    → Class is created <br>
+    → DI services injected <br>
+    → Nothing else ready yet <br>
+    → Runs ONCE only</p> <br>
+
+ <p>STEP 1️⃣ — ngOnChanges <br>
+        ━━━━━━━━━━━━━━━━━━━━━━━━━ <br>
+        → Runs ONLY if @Input() exists <br>
+        → First time @Input value arrives from parent <br>
+        → Gives you OLD value and NEW value <br>
+        → Runs BEFORE ngOnInit <br>
+        
+        ⚠️ Skipped if NO @Input() in component</p>
+        <br>
+
+<p>
+    STEP 2️⃣ — ngOnInit <br>
+    ━━━━━━━━━━━━━━━━━━━━━━━━━ <br>
+    → Component fully initialized <br>
+    → @Input() values are ready <br>
+    → API calls go here <br>
+    → Data setup goes here <br>
+    → Runs ONCE only <br>
+    → YOUR MOST USED HOOK ⭐ <br>
+
+</p><br>
+
+<p>STEP 3️⃣ — ngDoCheck <br>
+    ━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+    → Angular checks for changes <br>
+    → Runs after ngOnInit <br>
+    → Runs after every change detection <br>
+    → Very frequent — use carefully ⚠️ <br></p>
+
+<p>
+    STEP 4️⃣ — ngAfterContentInit <br>
+━━━━━━━━━━━━━━━━━━━━━━━━━ <br>
+→ ng-content (projected content) loaded <br>
+→ Like React's children prop ready <br>
+→ Runs ONCE only <br>
+</p> <br>
+
+<p>
+    STEP 5️⃣ — ngAfterContentChecked <br>
+━━━━━━━━━━━━━━━━━━━━━━━━━ <br>
+→ ng-content checked by Angular <br>
+→ Runs after every content check <br>
+→ Runs right after ngAfterContentInit <br>
+</p> <br>
+
+<p>STEP 6️⃣ — ngAfterViewInit  <br>
+    ━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+    → Component's HTML template fully rendered<br>
+    → DOM is ready<br>
+    → @ViewChild is available here<br>
+    → Third party libs init here (charts, maps)<br>
+    → Runs ONCE only<br>
+</p><br>
+
+<p>
+    STEP 7️⃣ — ngAfterViewChecked <br>
+━━━━━━━━━━━━━━━━━━━━━━━━━ <br>
+→ View checked by Angular <br>
+→ Runs after every view check <br>
+→ Runs right after ngAfterViewInit <br>
+</p>
+
+<h4>Console Output on First Load</h4>
+<p>
+    0️⃣ Constructor              ← class created <br>
+    1️⃣ ngOnChanges              ← @Input arrived <br>
+    2️⃣ ngOnInit                 ← component ready <br>
+    3️⃣ ngDoCheck                ← change check <br>
+    4️⃣ ngAfterContentInit       ← content ready <br>
+    5️⃣ ngAfterContentChecked    ← content checked <br>
+    6️⃣ ngAfterViewInit          ← DOM ready <br>
+    7️⃣ ngAfterViewChecked       ← view checked <br>
+
+</p>
+==============================================================
+
+<br><br>
+
+<h2>Phase 2 — Component LIFE 🔄</h2>
+<p>When something CHANGES (click, input, data update):</p>
+<p>
+    Every time change happens: <br>
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <br>
+    3️⃣ ngDoCheck                ← checks what changed <br>
+    5️⃣ ngAfterContentChecked    ← checks content again <br>
+    7️⃣ ngAfterViewChecked       ← checks view again <br>
+    <br>
+    If @Input() changed:<br>
+    1️⃣ ngOnChanges              ← fires first! <br>
+    then above 3 run again <br>
+    <br>
+</p>
+
+===========================================================
+<br><br>
+
+<h2>Phase 3 — Component DEATH 💀</h2>
+<p>When component removed from DOM:</p>
+
+<p>
+    STEP 8️⃣ — ngOnDestroy <br>
+━━━━━━━━━━━━━━━━━━━━━━━━━ <br>
+→ Component about to be removed <br>
+→ Clean up everything here <br>
+→ Unsubscribe observables <br>
+→ Clear timers <br>
+→ Remove event listeners <br>
+→ Runs ONCE only<br>
+</p><br><br>
+
+=============================================================
+
+<h2>Complete Timeline — Big Picture</h2>
+ 
+<p>
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <br>
+    BIRTH (runs once)<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+0️⃣  Constructor<br>
+1️⃣  ngOnChanges          (only if @Input)<br>
+2️⃣  ngOnInit             ⭐ main hook<br>
+3️⃣  ngDoCheck<br>
+4️⃣  ngAfterContentInit<br>
+5️⃣  ngAfterContentChecked<br>
+6️⃣  ngAfterViewInit      ⭐ DOM ready<br>
+7️⃣  ngAfterViewChecked<br>
+<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+    LIFE (runs on every change)<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+1️⃣  ngOnChanges          (only if @Input changed)<br>
+3️⃣  ngDoCheck<br>
+5️⃣  ngAfterContentChecked<br>
+7️⃣  ngAfterViewChecked<br>
+<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+    DEATH (runs once)<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+8️⃣  ngOnDestroy          ⭐ cleanup hook<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+<br>
+</p>
+======================================================
+<h2>Runs ONCE vs Runs MANY TIMES</h2>
+
+<p>
+    Runs ONCE:<br>
+━━━━━━━━━━━━━━━━━━━━━<br>
+0️⃣ Constructor<br>
+2️⃣ ngOnInit<br>
+4️⃣ ngAfterContentInit<br>
+6️⃣ ngAfterViewInit<br>
+8️⃣ ngOnDestroy<br>
+
+Runs MANY TIMES (every change):<br>
+━━━━━━━━━━━━━━━━━━━━━<br>
+1️⃣ ngOnChanges          (every @Input change)<br>
+3️⃣ ngDoCheck            (every change detection)<br>
+5️⃣ ngAfterContentChecked(every change detection)<br>
+7️⃣ ngAfterViewChecked   (every change detection)<br>
+<br>
+</p>
+
+==================================================================
+
+<h2>What You'll Use Daily — 4 Hooks Only</h2>
+<p>
+    Day to Day Reality:<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+2️⃣ ngOnInit       → API calls, data setup      ⭐⭐⭐<br>
+1️⃣ ngOnChanges    → react to @Input changes    ⭐⭐<br>
+6️⃣ ngAfterViewInit→ DOM access, charts, maps   ⭐⭐<br>
+8️⃣ ngOnDestroy    → cleanup, unsubscribe       ⭐⭐<br>
+<br>
+Rarely Used:<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+3️⃣ ngDoCheck<br>
+4️⃣ ngAfterContentInit<br>
+5️⃣ ngAfterContentChecked<br>
+7️⃣ ngAfterViewChecked<br>
+</p>
+========================================================================
+
+<h2>React Parallel — Final Map</h2>
+<p>
+    Angular                React<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+Constructor         →  top of function<br>
+ngOnChanges         →  useEffect(() => , [prop])<br>
+ngOnInit            →  useEffect(() => , [])<br>
+ngAfterViewInit     →  useEffect(() =>  ref... , [])<br>
+ngOnDestroy         →  useEffect(() =>  return ()=>, [])<br>
+ngDoCheck           →  no direct equivalent<br>
+ngAfterContentInit  →  no direct equivalent<br>
+</p>
+============================================================================
+<h6>💡 Simple rule — Birth → Life → Death. Constructor and ngOnInit for birth setup, <br>
+    change hooks for life,<br>
+     ngOnDestroy for death cleanup. <br>
+    You'll use 4 hooks 90% of the time — ngOnInit, ngOnChanges, ngAfterViewInit, ngOnDestroy.<br>
+</h6>
+<br><br><br>

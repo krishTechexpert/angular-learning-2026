@@ -28,6 +28,10 @@ import { PipeDemo } from './components/pipe-demo/pipe-demo';
 import { CapitalLizePipe } from './pipes/CapitalLizePipe';
 import { Filter } from './components/filter/filter';
 import { MyUserFiltersPipe } from './pipes/my-user-filters-pipe';
+import { LifeCycleHooks } from './components/life-cycle-hooks/life-cycle-hooks';
+import { LifeCycleParent } from './components/life-cycle-parent/life-cycle-parent';
+import { LifeCycleChild } from './components/life-cycle-child/life-cycle-child';
+import { UserListComponent } from './components/user-list-component/user-list-component';
 
 @NgModule({
   declarations: [
@@ -56,6 +60,10 @@ import { MyUserFiltersPipe } from './pipes/my-user-filters-pipe';
     CapitalLizePipe,
     Filter,
     MyUserFiltersPipe,
+    LifeCycleHooks,
+    LifeCycleParent,
+    LifeCycleChild,
+    UserListComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners()],

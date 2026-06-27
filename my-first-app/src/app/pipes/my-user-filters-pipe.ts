@@ -11,6 +11,7 @@ import { User } from '../components/pipe-demo/User';
 
 })
 export class MyUserFiltersPipe implements PipeTransform {
+
   //filterString is the value as we enter in input text field
   //property i sthe value we defined in User Interface so basically we filter by name property
   transform(value: User[], filterString:string,property:string): User[] {
