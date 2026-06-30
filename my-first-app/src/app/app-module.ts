@@ -32,6 +32,13 @@ import { LifeCycleHooks } from './components/life-cycle-hooks/life-cycle-hooks';
 import { LifeCycleParent } from './components/life-cycle-parent/life-cycle-parent';
 import { LifeCycleChild } from './components/life-cycle-child/life-cycle-child';
 import { UserListComponent } from './components/user-list-component/user-list-component';
+import { ViewChildDemo } from './components/view-child-demo/view-child-demo';
+import { ViewChildDemoWithAutoFocus } from './components/view-child-demo-with-auto-focus/view-child-demo-with-auto-focus';
+import { ChildComponent } from './components/access-child-component-method-example/access-child-component-method-example';
+import { ViewChildReadInputValueDirectlyDemo } from './components/view-child-read-input-value-directly-demo/view-child-read-input-value-directly-demo';
+import { ViewChildrenDemo } from './components/view-children-demo/view-children-demo';
+import { NgContentDemo } from './components/ng-content-demo/ng-content-demo';
+import { ErrorHandlingDemo } from './components/error-handling-demo/error-handling-demo';
 
 @NgModule({
   declarations: [
@@ -64,6 +71,13 @@ import { UserListComponent } from './components/user-list-component/user-list-co
     LifeCycleParent,
     LifeCycleChild,
     UserListComponent,
+    ViewChildDemo,
+    ViewChildDemoWithAutoFocus,
+    ChildComponent,
+    ViewChildReadInputValueDirectlyDemo,
+    ViewChildrenDemo,
+    NgContentDemo,
+    ErrorHandlingDemo,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners()],

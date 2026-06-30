@@ -1,0 +1,111 @@
+<h2>2️⃣ @ViewChildren — Get ALL Elements | Example — Get All List Items</h2>
+
+<ul>
+    <li
+      #userItem
+      *ngFor="let user of users">
+      {{ user.name }}
+    </li>
+  </ul>
+
+<button (click)="highlightAll()">Highlight All</button>
+<button (click)="highlightFirst()">Highlight First</button>
+<button (click)="highlightLast()">Highlight Last</button>
+
+
+<h2>@ViewChildren — QueryList Methods</h2>
+
+this.userItems.length       // total count — like array.length <br>
+this.userItems.first        // first item <br>
+this.userItems.last         // last item <br>
+this.userItems.forEach(...) // loop through all <br>
+this.userItems.toArray()    // convert to regular array <br>
+this.userItems.changes      // Observable — fires when list changes <br>
+
+========================================================= <br>
+
+<h2> static: true  vs  static: false </h2>
+// static: false (DEFAULT) — available in ngAfterViewInit <br>
+@ViewChild('myInput') myInput!: ElementRef; <br>
+
+// static: true — available in ngOnInit <br>
+// use ONLY when element is always in DOM (not inside *ngIf) <br>
+@ViewChild('myInput', static: true ) myInput!: ElementRef; <br>
+
+=====================================================<br>
+
+<h2>Common Mistake — Accessing Too Early</h2>
+
+<!-- // ❌ WRONG — not ready yet
+constructor() {
+  this.myInput.nativeElement.focus(); // ERROR! undefined
+}
+
+// ❌ WRONG — not safe
+ngOnInit() {
+  this.myInput.nativeElement.focus(); // might be undefined
+}
+
+// ✅ CORRECT — always ready here because DOM is ready Here
+ngAfterViewInit() {
+  this.myInput.nativeElement.focus(); // ✅ works!
+} -->
+
+===================================================
+
+<h2>Quick Summary</h2>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">@ViewChild</th>
+        <th scope="col">@ViewChildren</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Gets</td>
+        <td>ONE element</td>
+        <td>ALL matching elements</td>
+      </tr>
+      <tr>
+        <td>Returns</td>
+        <td>ElementRef or Component</td>
+        <td>QueryList</td>
+      </tr>
+      <tr>
+        <td>Access in</td>
+        <td>ngAfterViewInit</td>
+        <td>ngAfterViewInit</td>
+      </tr>
+      <tr>
+        <td>React equivalent</td>
+        <td>useRef()</td>
+        <td>array of refs</td>
+      </tr>
+      <tr>
+        <td>Use for</td>
+        <td>single DOM/component</td>
+        <td>multiple same elements</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+  =================================================<br>
+
+  <h2>Real World Use Cases</h2>
+  @ViewChild: <br>
+→ Auto focus input on load          ⭐ <br>
+→ Call child component method       ⭐ <br>
+→ Init chart/map library            ⭐ <br>
+→ Scroll to specific element        ⭐ <br>
+<br>
+@ViewChildren:<br>
+→ Highlight all list items          ⭐ <br>
+→ Get all form inputs               ⭐ <br>
+→ Animate multiple elements         ⭐ <br>
+→ Track dynamic list changes        ⭐ <br>
+
+=================================================<br>

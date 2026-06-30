@@ -1,0 +1,256 @@
+<h2>@ViewChild & @ViewChildren — Easy Explanation</h2>
+
+<h3>What is it?</h3>
+@ViewChild    →  get ONE element from template <br>
+@ViewChildren →  get ALL elements from template 
+====================================================
+<p>React equivalent:</p>
+ React <br>
+const inputRef = useRef(null);  // one element <br>
+ No direct equivalent for multiple refs (need array of refs) <br>
+==============================================================
+<p>Angular equivalent:</p>
+// Angular <br>
+//@ViewChild('myInput') myInput!: ElementRef;     // one element <br>
+//@ViewChildren('myItem') items!: QueryList<>; // multiple elements <br>
+==================================================================
+
+<h2>Why Do We Need It?</h2>
+Sometimes you need to: <br>
+→ Auto focus an input         ✅ <br>
+→ Get input value directly    ✅ <br>
+→ Access child component      ✅ <br>
+→ Scroll to element           ✅ <br>
+→ Init third party library    ✅ <br>
+   (charts, maps, datepicker)     <br>
+=======================================
+
+<h2>When to Use?</h2>
+Use @ViewChild when: <br>
+→ Need direct DOM access <br>
+→ Need to call child component method <br>
+→ Need to read element value <br>
+→ Third party lib needs DOM element <br>
+
+Always access in: <br>
+→ ngAfterViewInit ✅ <br>
+→ NOT in constructor ❌ <br>
+→ NOT in ngOnInit ❌ (not safe) <br>
+=====================================
+
+<h2>@ViewChild — Two Ways to Use</h2>
+
+<p><strong>Way 1</strong></p>
+// Way 1 — Template Reference Variable (string) <br>
+// use when accessing DOM element <br>
+@ViewChild('myInput') myInput!: ElementRef; <br>
+
+//<input #myInput />  <!-- # makes it a template ref -->
+<p><strong>Way 2</strong></p>
+// Way 2 — Component Class (type) <br>
+// use when accessing child component <br>
+@ViewChild(ChildComponent) child!: ChildComponent; <br>
+===========================================================
+
+<app-view-child-demo-with-auto-focus></app-view-child-demo-with-auto-focus>
+
+<app-access-child-component-method-example></app-access-child-component-method-example>
+
+<!-- ✅ access child property directly from parent -->
+<p>Count: {{ child?.count }} | put in parent .html file</p>
+
+<button (click)="incrementChild()">
+    Increment Child Count
+  </button>
+  
+  <button (click)="resetChild()">
+    Reset Child Count
+  </button>
+
+  =======================================================
+  <br><br>
+
+  <app-view-child-read-input-value-directly-demo></app-view-child-read-input-value-directly-demo> <br>
+
+  ============================================================================ <br>
+
+  <app-view-children-demo></app-view-children-demo>
+
+  =======================================================================
+
+  <h2>What is ng-content?  — Easy Explanation  </h2>
+
+  <p>ng-content = React's children prop  </p>
+  <p>It lets you pass HTML from parent into child component.  </p>
+
+  <h2>React vs Angular — Direct Comparison  </h2>
+
+  <!-- // React — children prop
+function Card({ children }) {
+  return (
+    <div className="card">
+      <div className="card-body">
+        {children}  {/* 👈 whatever parent passes */}
+      </div>
+    </div>
+  );
+}
+
+// Parent uses it
+<Card>
+  <h2>Hello Krishna!</h2>  {/* passed as children */}
+  <p>This is content</p>
+</Card> -->
+
+<!-- // Angular — ng-content
+@Component({
+  selector: 'app-card',
+  template: `
+    <div class="card">
+      <div class="card-body">
+        <ng-content></ng-content>  // 👈 whatever parent passes 
+      </div>
+    </div>
+  `
+})
+export class CardComponent {} -->
+
+<!-- Parent uses it -->
+<!--<app-card>
+  <h2>Hello Krishna!</h2>  // passed via ng-content 
+  <p>This is content</p>
+</app-card> -->
+
+<h2>Why Do We Need It?</h2>
+
+Without ng-content — rigid component: <br>
+<!-- <app-card></app-card> -->
+<div>&lt;app-card&gt;&lt;/app-card&gt;</div>
+→ always shows same content 😫 <br>
+
+With ng-content — flexible component: <br>
+
+<!-- <app-card>Any content here!</app-card> <br> -->
+&lt;app-card&gt;Any content here!&lt;/app-card&gt; &lt;br&gt; <br>
+→ reusable with different content ✅<br>
+
+======================================== <br>
+
+Projected Content = whatever HTML you write  <br>
+                     BETWEEN component's opening  <br>
+                     and closing tags <br>
+                     <br>
+                     which then gets displayed  <br>
+                     wherever <ng-content> sits  <br>
+                     inside that component<br>
+================================================= <br>
+ <h2>Why Called "Projected"?</h2>  
+ 
+ Think of it like a movie projector 🎥 <br>
+ <br>
+ng-content = the projector screen (placeholder)<br>
+Projected content = the actual movie/image being shown on screen<br>
+<br>
+Parent's HTML = the film reel<br>
+<ng-content>  = the screen where it gets displayed<br>
+  <br>
+===================================================  <br>
+
+<!-- Card 1 — user info -->
+<app-card>
+  <h2>Krishna Kumar</h2>  ← THIS is "Projected Content"
+  <p>Frontend Developer</p> ← THIS is "Projected Content" too
+  <p>Hyderabad</p>
+</app-card>
+
+<!-- Card 2 — product info -->
+<app-card>
+  <h2>iPhone 15</h2>
+  <p>Price: ₹79,999</p>
+  <button>Buy Now</button>
+</app-card>
+
+<!-- Card 3 — alert -->
+<app-card>
+  <h2>⚠️ Warning!</h2>
+  <p>Are you sure you want to delete?</p>
+  <button>Yes</button>
+  <button>No</button>
+</app-card>
+
+<h4>💡 Same app-card component — different content each time! That's the power of ng-content.</h4>
+=======================================================<br>
+
+<h2>Multiple ng-content — Content Projection with select</h2>
+
+<app-card>
+
+  <!-- each part goes to correct slot -->
+  <div card-header>
+    👤 User Profile
+  </div>
+
+  <div card-body>
+    <p>Name: Krishna Kumar</p>
+    <p>Role: Frontend Dev</p>
+    <p>City: Hyderabad</p>
+  </div>
+
+  <div card-footer>
+    <button>Edit Profile</button>
+    <button>Delete</button>
+  </div>
+
+</app-card>
+============================================================<br>
+
+<h2>select — Different Ways to Target</h2>
+<!-- By attribute -->
+<ng-content select="[card-header]"></ng-content>
+<div card-header>content 1</div>
+
+<!-- By CSS class -->
+<ng-content select=".header"></ng-content>
+<div class="header">content2</div>
+
+<!-- By element tag -->
+<ng-content select="h2"></ng-content>
+<h2>content3</h2>
+
+<!-- By component selector -->
+<ng-content select="app-theme-bar"></ng-content>
+<app-theme-bar myTheme="red">content4</app-theme-bar><br>
+
+============================================================<br>
+
+<h2>@ContentChild & @ContentChildren — Why, What, How, When</h2>
+
+<h4>What is it?</h4>
+
+@ContentChild     →  get ONE projected element/component (from ng-content) <br>
+@ContentChildren  →  get ALL projected elements/components (from ng-content) <br>
+
+<p>Life cycle hooks for above both is --- AfterContentInit</p>
+
+<h2>@ViewChild vs @ContentChild — Key Difference</h2>
+
+@ViewChild     →  element from component's OWN template <br>
+@ContentChild  →  element PASSED IN via ng-content (projected content) <br>
+<!-- 
+┌─────────────────────────────────┐
+│ <app-card>                       │
+│                                   │
+│   <h2 #title>Krishna</h2>  ← @ContentChild reads THIS
+│                                   │
+│ </app-card>                      │
+└─────────────────────────────────┘
+
+Inside app-card.component.html:
+┌─────────────────────────────────┐
+│ <div class="card">                │
+│   <ng-content></ng-content>       ← @ContentChild reads what's INSIDE here│
+│   <button #btn>Click</button> ← @ViewChild reads THIS
+│ </div>                            │
+└─────────────────────────────────┘ -->
+
+<p><img src="assets/image.png" width="200" height="200" /></p>
